@@ -8,11 +8,14 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import org.json.JSONObject;
 
 public class Sistema {
-	public static String imprimirDadosClimaticos(String dados) {
+	public static String imprimirDadosClimaticos(String dados) throws Exception {
 //		System.out.println("Dados originais (JSON) obtidos no site meteorológico" + dados);
 		
 		JSONObject dadosJson = new JSONObject(dados);
@@ -35,7 +38,7 @@ public class Sistema {
 		
 		// Imprimir as informações atuais
 		return "Informações Meteorológicas para " + cidade + ", " + pais 
-				+ "\nData e hora: " + dataHoraString 
+				+ "\nData e hora: " + formatarDataHora(dataHoraString) 
 				+ "\nTemperatura Atual: " + temperaturaAtual + "°C" 
 				+ "\nSensação Térmica: " + sensacaoTermica + "°C" 
 				+ "\nCondição do tempo: " + condicaoTempo 
@@ -63,4 +66,20 @@ public class Sistema {
 		
 		return response.body(); // retorna os dados meteorologicos obtidos no site da API (WeatherAPI)
 	}
+	
+	// Método para formatar a data e a hora
+    public static String formatarDataHora(String dataHoraString) throws Exception {
+        // Formato da data e hora recebida pela API
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        formatoEntrada.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        // Formato desejado para a exibição
+        SimpleDateFormat formatoSaida = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        // Converte a string de entrada para uma data
+        Date data = formatoEntrada.parse(dataHoraString);
+
+        // Retorna a data formatada
+        return formatoSaida.format(data);
+    }
 }
