@@ -1,6 +1,7 @@
 package geradorDeSenha;
 
 import java.security.SecureRandom;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -50,15 +52,26 @@ public class GeradorDeSenha extends Application {
 
         Button botaoGerar = new Button("Gerar Senha");
         botaoGerar.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
-        botaoGerar.setOnAction(_ -> {
+        
+        Runnable gerar = () -> {
             int tamanhoSenha;
 			try {
 				tamanhoSenha = Integer.parseInt(campoTamanhoSenha.getText());
 				String senha = GeradorDeSenha.gerarSenha(tamanhoSenha); // Gero a senha
 				campoSenhaGerada.setText(senha); // Mostro a senha gerada para o usuário
+				campoTamanhoSenha.clear();
 			} catch (NumberFormatException e) {
-				campoSenhaGerada.setText("ERRO!");				
+				campoSenhaGerada.setText("ERRO! Mensagem: a" + e.getMessage());				
+				campoTamanhoSenha.clear();
 			} // Pego o tamanho desejado
+        };
+        
+        botaoGerar.setOnAction(_ -> gerar.run());
+        
+        campoTamanhoSenha.setOnKeyPressed(e->{
+        	if (e.getCode() == KeyCode.ENTER) {
+        		gerar.run();
+        	}
         });
 
         VBox vBox = new VBox(labelTamanhoSenha, campoTamanhoSenha, botaoGerar, labelSenhaGerada, campoSenhaGerada);

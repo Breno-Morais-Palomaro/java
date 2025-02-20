@@ -47,11 +47,14 @@ public class SistemaDeInformacaoesClimaticasEmTempoReal extends Application {
                 // Código 1006 significa localização não encontrada
                 if (dadosClimaticos.contains("\"code\":1006")) { // \"code\":1006 representa "code":1006  
                     labelResul.setText("Localização não encontrada");
+                    textCidade.clear();
                 } else {
                     labelResul.setText(Sistema.imprimirDadosClimaticos(dadosClimaticos));
+                    textCidade.clear();
                 }
             } catch (Exception e) {
                 labelResul.setText(e.getMessage());
+                textCidade.clear();
             }
         };
 
