@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -50,6 +51,7 @@ public class RelogioDigital extends Application{
 		var cena = new Scene(vboxLayout, 245, 100);
 		
 		primaryStage.setTitle("Relógio Digital");
+		primaryStage.getIcons().add(new Image("file:E:\\Eclipse-WorkSpace\\icon.png"));
 		primaryStage.setScene(cena);
 		primaryStage.setAlwaysOnTop(true);
 		primaryStage.show();

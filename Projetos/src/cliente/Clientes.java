@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -73,6 +74,7 @@ public class Clientes extends Application {
         var cena = new Scene(boxPrincipal, 400, 400);
 
         primaryStage.setScene(cena);
+        primaryStage.getIcons().add(new Image("file:E:\\Eclipse-WorkSpace\\icon.png"));
         primaryStage.show();
     }
 
